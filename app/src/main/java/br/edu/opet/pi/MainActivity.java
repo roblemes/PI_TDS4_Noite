@@ -37,37 +37,32 @@ public class MainActivity extends AppCompatActivity {
                 String repas = repassword.getText().toString();
 
                 if (user.equals("") || pass.equals("")||repas.equals(""))
-                Toast.makeText(MainActivity.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
-                else
+                Toast.makeText(MainActivity.this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
+                else{
                     if (pass.equals(repas)){
                         Boolean checkuser = DB.checkusername(user);
                         if (checkuser == false){
                             Boolean insert = DB.insertData(user, pass);
-                            if (checkuser == true) {
-                                Toast.makeText(MainActivity.this, "Registered succesfully", Toast.LENGTH_SHORT).show();
+                            if (insert == true) {
+                                Toast.makeText(MainActivity.this, "Cadastro realizado!", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(MainActivity.this, DashBoard.class);
                                 startActivity(intent);
 
                             }else{
-                                Toast.makeText(MainActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Falha no cadastro", Toast.LENGTH_SHORT).show();
                             }
 
+                        } else {
+                            Toast.makeText(MainActivity.this, "Usuario já existe", Toast.LENGTH_SHORT).show();
                         }
-
-                    } else
-                    {
-                        Toast.makeText(MainActivity.this, "User already Exist", Toast.LENGTH_SHORT).show();
+                        }else{
+                        Toast.makeText(MainActivity.this,"Senhas não correspondem",Toast.LENGTH_SHORT).show();
                     }
 
-
-
+                }
             }
+
         });
 
-    }
 
-    public void onClick (View v){
-        Intent intent = new Intent(MainActivity.this, DashBoard.class);
-        startActivity(intent);
-    }
-}
+}}
