@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import br.edu.opet.pi.data.DBHelper;
 
 public class LoginCreation extends AppCompatActivity {
-    EditText username,password;
+    EditText username,email,password;
     Button buttonCadastro;
     Button btnlogin;
     DBHelper DB;
@@ -24,6 +24,7 @@ public class LoginCreation extends AppCompatActivity {
         setContentView(R.layout.activity_login_creation);
 
         username = (EditText) findViewById(R.id.username1);
+        email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password1);
         btnlogin = (Button) findViewById(R.id.btnlogin);
         buttonCadastro = (Button) findViewById(R.id.buttonCadastro);
@@ -33,6 +34,7 @@ public class LoginCreation extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String user = username.getText().toString();
+                String e_mail = email.getText().toString();
                 String pass = password.getText().toString();
 
                 if (user.equals("")||pass.equals("")){
@@ -41,9 +43,11 @@ public class LoginCreation extends AppCompatActivity {
                     Boolean checkuserpass = DB.checkupassword(user, pass);
                     if (checkuserpass == true){
                         Toast.makeText(LoginCreation.this, "Credenciais válidas", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginCreation.this, DashBoard.class);
-                        // (FUNCIONANDO)Intent intent = new Intent(getApplicationContext(), DashBoard.class);
+
+                        // redirecionamento para a welcome activity
+                        Intent intent = new Intent(LoginCreation.this, WelcomeActivity.class);
                         startActivity(intent);
+
                     } else {
                         Toast.makeText(LoginCreation.this, "Credenciais invalidas", Toast.LENGTH_SHORT).show();
 

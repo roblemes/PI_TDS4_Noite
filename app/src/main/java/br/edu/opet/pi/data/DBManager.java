@@ -31,10 +31,16 @@ public class DBManager {
         contentValues.put(DBHelper.TAREFAS_DESC, desc);
         database.insert(DBHelper.TABELA_TAREFAS, null,contentValues);
     }
+    public void insert_project(String name){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBHelper.PROJECTS_NAME, name);
+        database.insert(DBHelper.TABELA_PROJECTS, null,contentValues);
+    }
 
     public Cursor fetch(){
         String[] columns = new String[]{DBHelper.TAREFAS_ID,
-                DBHelper.TAREFAS_SUBJECT,DBHelper.TAREFAS_DESC};
+                DBHelper.TAREFAS_SUBJECT,DBHelper.TAREFAS_DESC,
+                "project_id","assigned_user_id"};
 
         Cursor cursor = database.query(DBHelper.TABELA_TAREFAS,
                 columns, null, null,
@@ -46,6 +52,21 @@ public class DBManager {
         }
         return cursor;
     }
+    public Cursor fetch_projects(){
+        String[] columns = new String[]{DBHelper.PROJECTS_ID,
+                DBHelper.PROJECTS_NAME};
+
+        Cursor cursor = database.query(DBHelper.TABELA_PROJECTS,
+                columns, null, null,
+                null,
+                null,
+                null);
+        if(cursor != null){
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
+
 public int update(long _id, String name, String desc){
     ContentValues contentValues = new ContentValues();
     contentValues.put(DBHelper.TAREFAS_SUBJECT, name);

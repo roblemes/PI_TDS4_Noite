@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="br.edu.opet.pi">
-    <uses-permission android:name="android.permission.WAKE_LOCK" tools:node="replace" />
+
+    <uses-permission
+        android:name="android.permission.WAKE_LOCK"
+        tools:node="replace" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PI"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ModifyTaskActivity"></activity>
+        <activity android:name=".AddProject"></activity>
+        <activity android:name=".WelcomeActivity" />
+        <activity android:name=".ModifyTaskActivity" />
         <activity android:name=".AddTaskActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".DashBoard" />

@@ -13,7 +13,7 @@ import br.edu.opet.pi.data.DBHelper;
 
 
 public class MainActivity extends AppCompatActivity {
-    EditText username, password, repassword;
+    EditText username, email, password, repassword;
     Button signup;
     DBHelper DB;
 
@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         username  = (EditText) findViewById(R.id.username);
+        email  = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
         repassword = (EditText) findViewById(R.id.repassword);
         signup = (Button) findViewById(R.id.signup);
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String user = username.getText().toString();
+                String e_mail = email.getText().toString();
                 String pass  = password.getText().toString();
                 String repas = repassword.getText().toString();
 
@@ -42,9 +44,11 @@ public class MainActivity extends AppCompatActivity {
                     if (pass.equals(repas)){
                         Boolean checkuser = DB.checkusername(user);
                         if (checkuser == false){
-                            Boolean insert = DB.insertData(user, pass);
+                            Boolean insert = DB.insertData(user, e_mail, pass);
                             if (insert == true) {
                                 Toast.makeText(MainActivity.this, "Cadastro realizado!", Toast.LENGTH_SHORT).show();
+
+                                // redirecionamento para a dashboard activity
                                 Intent intent = new Intent(MainActivity.this, DashBoard.class);
                                 startActivity(intent);
 

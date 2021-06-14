@@ -23,31 +23,25 @@ public class DashBoard extends AppCompatActivity {
     private DBManager dbManager;
     private ListView listView;
     private SimpleCursorAdapter adapter;
-
     final String[] from = new String[]  {
             DBHelper.TAREFAS_ID, DBHelper.TAREFAS_SUBJECT, DBHelper.TAREFAS_DESC
     };
-
     final int[] to = new int[] {R.id.id, R.id.title, R.id.desc};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.emp_dash_board);
-
         dbManager = new DBManager(this);
         dbManager.open();
         Cursor cursor = dbManager.fetch();
-
         listView = findViewById(R.id.list_view);
         listView.setEmptyView(findViewById(R.id.empty_tasks));
-
         adapter = new SimpleCursorAdapter(this, R.layout.activity_view_record,
                 cursor, from , to , 0 );
         adapter.notifyDataSetChanged();
 
         listView.setAdapter(adapter);
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
             @Override
@@ -58,15 +52,6 @@ public class DashBoard extends AppCompatActivity {
                 String id = sql.getString(sql.getColumnIndex("_id"));
                 String desc = sql.getString(sql.getColumnIndex("description"));
                 String title = sql.getString(sql.getColumnIndex("subject"));
-
-                // alterar findbiewbyid
-                /*
-                TextView idTextView = view.findViewById(R.id.id);
-                TextView titleTextView = view.findViewById(R.id.title);
-                TextView descTextView = view.findViewById(R.id.desc);
-                String id = idTextView.getText().toString();
-                String title = titleTextView.getText().toString();
-                String desc = descTextView.getText().toString(); */
 
                 Intent modify_intent = new Intent(getApplicationContext(),
                         ModifyTaskActivity.class);
@@ -94,7 +79,6 @@ public class DashBoard extends AppCompatActivity {
             Intent add_mem = new Intent(DashBoard.this, AddTaskActivity.class);
             startActivity(add_mem);
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
