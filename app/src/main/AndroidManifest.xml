@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="br.edu.opet.pi">
-    <uses-permission android:name="android.permission.WAKE_LOCK" tools:node="replace" />
+
+    <uses-permission
+        android:name="android.permission.WAKE_LOCK"
+        tools:node="replace" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,19 +16,39 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PI"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ModifyTaskActivity"></activity>
-        <activity android:name=".AddTaskActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".DashBoard" />
+        <activity android:name=".WelcomeActivity"
+            android:label="Perfil do Usuário"></activity>
+
+        <receiver
+            android:name=".Receiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".ModifyTaskActivity"
+            android:label="Editar Tarefa" />
+        <activity
+            android:name=".AddTaskActivity"
+            android:label="Adicionar Tarefa" />
+        <activity
+            android:name=".CadastroActivity"
+            android:label="Cadastro de Usuário" />
+        <activity
+            android:name=".DashBoard"
+            android:label="Minhas Tarefas" />
         <activity
             android:name=".LoginCreation"
-            android:label="@string/title_activity_login_creation">
+            android:label="Organiza Ai">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
 
 </manifest>

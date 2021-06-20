@@ -46,6 +46,28 @@ public class DBManager {
         }
         return cursor;
     }
+
+    public Cursor findUserById(String usernameId){
+        String[] colunas = new String[]{DBHelper.USERS_ID,
+                "username",
+                "email",
+                "password",
+                "endereco",
+                "cidade",
+                "estado",
+                "cep",
+                "bairro"};
+        String where = "username LIKE '%"+usernameId+"%'";
+
+        Cursor c = database.query(true, "users", colunas,
+                where, null, null, null, null, null);
+
+        if(c != null){
+            c.moveToFirst();
+        }
+        return c;
+    }
+
 public int update(long _id, String name, String desc){
     ContentValues contentValues = new ContentValues();
     contentValues.put(DBHelper.TAREFAS_SUBJECT, name);
@@ -61,5 +83,26 @@ public void delete(long _id){
         database.delete(DBHelper.TABELA_TAREFAS,
                 DBHelper.TAREFAS_ID + " = " + _id, null);
 }
+
+    public Long GetUserID(String tableName,String usernameId) {
+        String where = "username LIKE '%"+usernameId+"%'";
+        String[] colunas = new String[]{DBHelper.USERS_ID,
+        "username",
+        "email",
+        "password",
+        "endereco",
+        "cidade",
+        "estado",
+        "cep",
+        "bairro"};
+
+        Cursor c = database.query(true, tableName, colunas,
+                 where, null, null, null, null, null);
+
+        if(c != null && c.moveToFirst())
+            return c.getLong(c.getColumnIndex(dbHelper.USERS_ID));
+        else
+            return null;
+    }
 
 }

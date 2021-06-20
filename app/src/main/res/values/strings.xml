@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">PI</string>
     <!-- Strings related to login -->
-    <string name="prompt_email">Insira o nome de <usuario></usuario></string>
+    <string name="prompt_username">Insira o nome de usuario</string>
+    <string name="prompt_email">Insira o seu e-mail</string>
     <string name="prompt_password">Insira a senha</string>
     <string name="repassword">Confirme a senha</string>
     <string name="action_sign_in">FAZER LOGIN</string>

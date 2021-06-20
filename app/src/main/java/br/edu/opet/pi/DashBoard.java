@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import br.edu.opet.pi.data.DBHelper;
 import br.edu.opet.pi.data.DBManager;
@@ -45,28 +45,27 @@ public class DashBoard extends AppCompatActivity {
         adapter = new SimpleCursorAdapter(this, R.layout.activity_view_record,
                 cursor, from , to , 0 );
         adapter.notifyDataSetChanged();
-
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long viewid) {
+
+                Intent intent = getIntent();
+                String name = intent.getStringExtra("user_name");
+                String user_id = intent.getStringExtra("userId");
+
+                Toast.makeText(DashBoard.this , "user: "+ name + " id: " + user_id, Toast.LENGTH_LONG).show();
+
+                ////////////////////
 
                 SQLiteCursor sql = (SQLiteCursor) listView.getItemAtPosition(position);
 
                 String id = sql.getString(sql.getColumnIndex("_id"));
                 String desc = sql.getString(sql.getColumnIndex("description"));
                 String title = sql.getString(sql.getColumnIndex("subject"));
-
-                // alterar findbiewbyid
-                /*
-                TextView idTextView = view.findViewById(R.id.id);
-                TextView titleTextView = view.findViewById(R.id.title);
-                TextView descTextView = view.findViewById(R.id.desc);
-                String id = idTextView.getText().toString();
-                String title = titleTextView.getText().toString();
-                String desc = descTextView.getText().toString(); */
 
                 Intent modify_intent = new Intent(getApplicationContext(),
                         ModifyTaskActivity.class);
@@ -79,6 +78,7 @@ public class DashBoard extends AppCompatActivity {
             }
         });
 }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
