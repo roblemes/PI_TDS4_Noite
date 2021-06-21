@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WelcomeActivity"
+    tools:context=".activities.WelcomeActivity"
     android:padding="25dp"
     android:orientation="vertical"
     android:gravity="center">
@@ -107,21 +107,24 @@
             android:layout_marginBottom="25dp"
             >
 
-        <TextView
-            android:id="@+id/txtvCidade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="Cidade"
-            />
+
             </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnTarefas"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:text="Minhas tarefas"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSair"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sair"
             />
 
 

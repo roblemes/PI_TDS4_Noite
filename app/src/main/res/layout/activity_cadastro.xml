@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CadastroActivity">
+    tools:context=".activities.CadastroActivity">
 <LinearLayout
     android:id="@+id/container"
     android:layout_width="match_parent"
@@ -120,7 +120,7 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginTop="6dp"
-        android:hint="UF"
+        android:hint="Estado"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtUf"
@@ -194,15 +194,6 @@
         android:layout_marginBottom="64dp"
         android:visibility="gone"
         />
-
-    <ProgressBar
-        android:id="@+id/progressBarCEP"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        tools:visibility="visible"
-        android:layout_gravity="center"/>
 
 </LinearLayout>
 </ScrollView>

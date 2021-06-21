@@ -1,4 +1,4 @@
-package br.edu.opet.pi.api;
+package br.edu.opet.pi.services;
 
 import br.edu.opet.pi.cep.CEP;
 import retrofit2.Call;

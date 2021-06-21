@@ -16,29 +16,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PI"
         android:usesCleartextTraffic="true">
-        <activity android:name=".WelcomeActivity"
+        <activity android:name=".activities.WelcomeActivity"
             android:label="Perfil do Usuário"></activity>
 
         <receiver
-            android:name=".Receiver"
+            android:name=".receiver.Receiver"
             android:enabled="true"
             android:exported="true" />
 
         <activity
-            android:name=".ModifyTaskActivity"
+            android:name=".activities.ModifyTaskActivity"
             android:label="Editar Tarefa" />
         <activity
-            android:name=".AddTaskActivity"
+            android:name=".activities.AddTaskActivity"
             android:label="Adicionar Tarefa" />
         <activity
-            android:name=".CadastroActivity"
+            android:name=".activities.CadastroActivity"
             android:label="Cadastro de Usuário" />
         <activity
-            android:name=".DashBoard"
+            android:name=".activities.DashBoard"
             android:label="Minhas Tarefas" />
         <activity
-            android:name=".LoginCreation"
-            android:label="Organiza Ai">
+            android:name=".activities.LoginCreation"
+            android:label="Organiza Aí">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

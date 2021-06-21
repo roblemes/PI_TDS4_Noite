@@ -1,4 +1,4 @@
-package br.edu.opet.pi;
+package br.edu.opet.pi.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,14 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import br.edu.opet.pi.api.RESTService;
+import br.edu.opet.pi.R;
+import br.edu.opet.pi.services.RESTService;
 import br.edu.opet.pi.cep.CEP;
 import br.edu.opet.pi.data.DBHelper;
 import br.edu.opet.pi.util.Mascara;
@@ -24,8 +23,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 
 public class CadastroActivity extends AppCompatActivity {
@@ -37,7 +34,6 @@ public class CadastroActivity extends AppCompatActivity {
     private TextInputLayout layCEP;
     private Button signup, btnConsultarCEP;
     private DBHelper DB;
-    private ProgressBar progressBarCEP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +52,7 @@ public class CadastroActivity extends AppCompatActivity {
         txtLocalidade = findViewById(R.id.txtLocalidade);
         signup = (Button) findViewById(R.id.signup);
         btnConsultarCEP = (Button) findViewById(R.id.btnConsultarCEP);
-        progressBarCEP = findViewById(R.id.progressBarCEP);
         DB = new DBHelper(this);
-
-        //configurando como invisível
-        progressBarCEP.setVisibility(View.GONE);
 
         //Aplicando a máscara para CEP
         txtCEP.addTextChangedListener(Mascara.insert(Mascara.MASCARA_CEP, txtCEP));
@@ -70,7 +62,6 @@ public class CadastroActivity extends AppCompatActivity {
                 .baseUrl(URL)                                       //endereço do webservice
                 .addConverterFactory(GsonConverterFactory.create()) //conversor
                 .build();
-
 
         btnConsultarCEP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,9 +160,6 @@ public class CadastroActivity extends AppCompatActivity {
         //passando os dados para consulta
         Call<CEP> call = restService.consultarCEP(sCep);
 
-        //exibindo a progressbar
-        progressBarCEP.setVisibility(View.VISIBLE);
-
         //colocando a requisição na fila para execução
         call.enqueue(new Callback<CEP>() {
             @Override
@@ -184,17 +172,12 @@ public class CadastroActivity extends AppCompatActivity {
                 txtLocalidade.setText(cep.getLocalidade());
                 Toast.makeText(getApplicationContext(), "CEP consultado com sucesso", Toast.LENGTH_LONG).show();
 
-                //escondendo a progressbar
-                progressBarCEP.setVisibility(View.GONE);
-
             }
 
             @Override
             public void onFailure(Call<CEP> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Ocorreu um erro ao tentar consultar o CEP. Erro: " + t.getMessage(), Toast.LENGTH_LONG).show();
 
-                //escondendo a progressbar
-                progressBarCEP.setVisibility(View.GONE);
             }
         });
     }

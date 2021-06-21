@@ -1,4 +1,4 @@
-package br.edu.opet.pi;
+package br.edu.opet.pi.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,18 +10,11 @@ import androidx.appcompat.app.AlertDialog;
 
 public class Receiver extends BroadcastReceiver{
 
-
         AlertDialog.Builder alertBuilder;
         @Override
         public void onReceive(Context context, Intent intent) {
 
             int level = intent.getIntExtra("level",0);
-
-            //ProgressBar progressBar = (ProgressBar)findViewById(R.id.pb);
-           // progressBar.setProgress(level);
-
-            //TextView tv = (TextView)findViewById(R.id.tv);
-            //tv.setText("Battery Level: " + Integer.toString(level) + "%");
 
             if (level<25){
                 Toast.makeText(context, "Bateria baixa!", Toast.LENGTH_SHORT).show();

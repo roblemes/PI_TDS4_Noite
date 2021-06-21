@@ -21,23 +21,28 @@ public class DBManager {
         database = dbHelper.getWritableDatabase();
         return this;
     }
+
     public void close(){
         dbHelper.close();
-
     }
-    public void insert(String name, String desc){
+
+    public void insert(String name, String desc, String assigned_user){
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBHelper.TAREFAS_SUBJECT, name);
         contentValues.put(DBHelper.TAREFAS_DESC, desc);
+        contentValues.put(DBHelper.TAREFAS_ASSIGNED_USER, assigned_user);
         database.insert(DBHelper.TABELA_TAREFAS, null,contentValues);
     }
 
-    public Cursor fetch(){
+    public Cursor fetch(String assigned_user_id){
         String[] columns = new String[]{DBHelper.TAREFAS_ID,
-                DBHelper.TAREFAS_SUBJECT,DBHelper.TAREFAS_DESC};
+                DBHelper.TAREFAS_SUBJECT,DBHelper.TAREFAS_DESC,
+        DBHelper.TAREFAS_ASSIGNED_USER};
+
+        String where = "assigned_user_id LIKE '%"+assigned_user_id+"%'";
 
         Cursor cursor = database.query(DBHelper.TABELA_TAREFAS,
-                columns, null, null,
+                columns, where, null,
                 null,
                 null,
                 null);

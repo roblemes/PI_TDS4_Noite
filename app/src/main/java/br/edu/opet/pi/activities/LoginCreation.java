@@ -1,4 +1,4 @@
-package br.edu.opet.pi;
+package br.edu.opet.pi.activities;
 
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import br.edu.opet.pi.R;
+import br.edu.opet.pi.receiver.Receiver;
 import br.edu.opet.pi.data.DBHelper;
 import br.edu.opet.pi.data.DBManager;
 
@@ -60,11 +62,8 @@ public class LoginCreation extends AppCompatActivity {
                         startActivity(intent);
                     } else {
                         Toast.makeText(LoginCreation.this, "Credenciais invalidas", Toast.LENGTH_SHORT).show();
-
                     }
                 }
-
-
             }
         });
 

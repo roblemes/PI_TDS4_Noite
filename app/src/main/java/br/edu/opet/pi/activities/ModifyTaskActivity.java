@@ -1,6 +1,4 @@
-package br.edu.opet.pi;
-
-import androidx.appcompat.app.AppCompatActivity;
+package br.edu.opet.pi.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,7 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import br.edu.opet.pi.R;
 import br.edu.opet.pi.data.DBManager;
 
 public class ModifyTaskActivity extends Activity implements View.OnClickListener {
@@ -55,10 +55,14 @@ public class ModifyTaskActivity extends Activity implements View.OnClickListener
                 String title = titleText.getText().toString();
                 String desc = descText.getText().toString();
                 dbManager.update(_id, title, desc);
+                Toast.makeText(ModifyTaskActivity.this , "Tarefa atualizada", Toast.LENGTH_LONG).show();
+
                 this.returnHome();
                 break;
             case R.id.btn_delete:
                 dbManager.delete(_id);
+                Toast.makeText(ModifyTaskActivity.this , "Tarefa excluida", Toast.LENGTH_LONG).show();
+
                 this.returnHome();
                 break;
         }
@@ -67,6 +71,8 @@ public class ModifyTaskActivity extends Activity implements View.OnClickListener
     public void returnHome(){
         Intent home_intent = new Intent(getApplicationContext(),
                 DashBoard.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(home_intent);
+
+                setResult(RESULT_OK,home_intent);
+                finish();
     }
 }

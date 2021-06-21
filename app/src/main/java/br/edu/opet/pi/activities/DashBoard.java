@@ -1,4 +1,4 @@
-package br.edu.opet.pi;
+package br.edu.opet.pi.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
+import br.edu.opet.pi.R;
 import br.edu.opet.pi.data.DBHelper;
 import br.edu.opet.pi.data.DBManager;
 
@@ -23,13 +24,43 @@ public class DashBoard extends AppCompatActivity {
     private DBManager dbManager;
     private ListView listView;
     private SimpleCursorAdapter adapter;
+    private Intent intent;
 
     final String[] from = new String[]  {
             DBHelper.TAREFAS_ID, DBHelper.TAREFAS_SUBJECT, DBHelper.TAREFAS_DESC
     };
-
     final int[] to = new int[] {R.id.id, R.id.title, R.id.desc};
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK){
+                dbManager = new DBManager(this);
+                dbManager.open();
+
+                intent = getIntent();
+                String assigned_user_id = intent.getStringExtra("userId");
+
+                Cursor cursor = dbManager.fetch(assigned_user_id);
+
+                listView = findViewById(R.id.list_view);
+                listView.setEmptyView(findViewById(R.id.empty_tasks));
+
+                adapter = new SimpleCursorAdapter(this, R.layout.activity_view_record,
+                        cursor, from , to , 0 );
+
+                adapter.notifyDataSetChanged();
+                listView.setAdapter(adapter);
+            }
+        }
+    }
+
+    /* @    requires Abrir as tarefas compartilhadas com o usuário logado
+    @       ensures Listar as tarefas criadas para um usuário.
+    @       se nada existir. Tela em Branco.
+    @*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,29 +68,31 @@ public class DashBoard extends AppCompatActivity {
 
         dbManager = new DBManager(this);
         dbManager.open();
-        Cursor cursor = dbManager.fetch();
+
+        intent = getIntent();
+        String assigned_user_id = intent.getStringExtra("userId");
+
+        Cursor cursor = dbManager.fetch(assigned_user_id);
 
         listView = findViewById(R.id.list_view);
         listView.setEmptyView(findViewById(R.id.empty_tasks));
 
         adapter = new SimpleCursorAdapter(this, R.layout.activity_view_record,
                 cursor, from , to , 0 );
+
         adapter.notifyDataSetChanged();
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
+            /*@  requires Usuário permitido alterar as tarefas
+            @    ensures Disponibilidade do botão alterar
+            @    método onClick que inicia uma Activity de mudança de conteúdo da
+            @    tarefa
+            @*/
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long viewid) {
-
-                Intent intent = getIntent();
-                String name = intent.getStringExtra("user_name");
-                String user_id = intent.getStringExtra("userId");
-
-                Toast.makeText(DashBoard.this , "user: "+ name + " id: " + user_id, Toast.LENGTH_LONG).show();
-
-                ////////////////////
 
                 SQLiteCursor sql = (SQLiteCursor) listView.getItemAtPosition(position);
 
@@ -74,11 +107,10 @@ public class DashBoard extends AppCompatActivity {
                 modify_intent.putExtra("desc",desc);
                 modify_intent.putExtra("id",id);
 
-                startActivity(modify_intent);
+                startActivityForResult(modify_intent,1);
             }
         });
 }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -91,8 +123,17 @@ public class DashBoard extends AppCompatActivity {
         int id = item.getItemId();
         //add_task
        if (id==R.id.add_task){
-            Intent add_mem = new Intent(DashBoard.this, AddTaskActivity.class);
-            startActivity(add_mem);
+            String user_id = intent.getStringExtra("userId");
+            String user_name = intent.getStringExtra("user_name");
+            String assigned_user_id = intent.getStringExtra("userId");
+
+            intent = new Intent(DashBoard.this, AddTaskActivity.class);
+
+            intent.putExtra("assigned_user_id",assigned_user_id);
+            intent.putExtra("user_name",user_name);
+            intent.putExtra("userId",user_id);
+            startActivityForResult(intent,1);
+
         }
 
         return super.onOptionsItemSelected(item);

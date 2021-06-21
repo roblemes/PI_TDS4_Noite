@@ -17,12 +17,15 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String TAREFAS_ID = "_id";
     public static final String TAREFAS_SUBJECT = "subject";
     public static final String TAREFAS_DESC = "description";
+    public static final String TAREFAS_ASSIGNED_USER = "assigned_user_id";
 
     private static final String CREATE_TABLE_TAREFAS = "create table " +
             TABELA_TAREFAS + "(" + TAREFAS_ID +
             " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             TAREFAS_SUBJECT+ " TEXT NOT NULL, " +
-            TAREFAS_DESC+ " TEXT );";
+            TAREFAS_DESC+ " TEXT, " +
+            TAREFAS_ASSIGNED_USER + " INTEGER NOT NULL, " +
+            "FOREIGN KEY ( "+TAREFAS_ASSIGNED_USER+" ) REFERENCES users( "+USERS_ID+" ));";
 
     private static final String CREATE_TABLE_USERS = "create table " +
             TABELA_USERS + "("+ USERS_ID +
@@ -44,6 +47,7 @@ public class DBHelper extends SQLiteOpenHelper {
         MyDB.execSQL("drop Table if exists "+TABELA_TAREFAS);
         onCreate(MyDB);
     }
+
     public Boolean insertData(String username, String email, String password,
     String endereco, String cidade, String estado, String cep, String bairro){
         SQLiteDatabase MyDB = this.getWritableDatabase();

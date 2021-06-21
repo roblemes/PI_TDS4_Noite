@@ -1,4 +1,4 @@
-package br.edu.opet.pi;
+package br.edu.opet.pi.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,14 +10,15 @@ import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 
+import br.edu.opet.pi.R;
 import br.edu.opet.pi.data.DBHelper;
 import br.edu.opet.pi.data.DBManager;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    private TextView user, email, endereco, cidade;
+    private TextView user, email, endereco;
     private DBManager dbManager;
-    private MaterialButton btnTarefas;
+    private MaterialButton btnTarefas, btnSair;
     private Intent intent;
 
     @Override
@@ -28,8 +29,8 @@ public class WelcomeActivity extends AppCompatActivity {
         user = findViewById(R.id.txtvUsername);
         email = findViewById(R.id.txtvEmail);
         endereco = findViewById(R.id.txtvEndereco);
-        cidade = findViewById(R.id.txtvCidade);
         btnTarefas = findViewById(R.id.btnTarefas);
+        btnSair = findViewById(R.id.btnSair);
 
         intent = getIntent();
         String user_id = intent.getStringExtra("userId");
@@ -41,8 +42,15 @@ public class WelcomeActivity extends AppCompatActivity {
 
         email.setText(cursor.getString( cursor.getColumnIndex("email") ));
         user.setText(cursor.getString( cursor.getColumnIndex("username") ));
-        endereco.setText(cursor.getString( cursor.getColumnIndex("endereco") ));
-        cidade.setText(cursor.getString( cursor.getColumnIndex("cidade") ));
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(cursor.getString( cursor.getColumnIndex("endereco") )
+        + ", " + cursor.getString( cursor.getColumnIndex("bairro") )
+                + ", " + cursor.getString( cursor.getColumnIndex("cidade") )
+                        + ", " + cursor.getString( cursor.getColumnIndex("estado") )
+        );
+
+        endereco.setText(sb);
 
         btnTarefas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +60,18 @@ public class WelcomeActivity extends AppCompatActivity {
 
                 intent.putExtra("user_name",user_name);
                 intent.putExtra("userId",user_id);
+
+                startActivity(intent);
+            }
+        });
+        btnSair.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                intent = new Intent(getApplicationContext(), LoginCreation.class);
+
+                //intent.putExtra("user_name",user_name);
+                //intent.putExtra("userId",user_id);
 
                 startActivity(intent);
             }
