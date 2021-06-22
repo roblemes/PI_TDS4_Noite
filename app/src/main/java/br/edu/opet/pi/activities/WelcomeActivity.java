@@ -49,8 +49,8 @@ public class WelcomeActivity extends AppCompatActivity {
                 + ", " + cursor.getString( cursor.getColumnIndex("cidade") )
                         + ", " + cursor.getString( cursor.getColumnIndex("estado") )
         );
-
         endereco.setText(sb);
+
 
         btnTarefas.setOnClickListener(new View.OnClickListener() {
             @Override

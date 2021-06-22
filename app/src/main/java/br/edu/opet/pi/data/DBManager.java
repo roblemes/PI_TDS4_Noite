@@ -62,7 +62,7 @@ public class DBManager {
                 "estado",
                 "cep",
                 "bairro"};
-        String where = "username LIKE '%"+usernameId+"%'";
+        String where = "_id LIKE '%"+usernameId+"%'";
 
         Cursor c = database.query(true, "users", colunas,
                 where, null, null, null, null, null);
