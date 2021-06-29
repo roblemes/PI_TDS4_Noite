@@ -16,13 +16,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PI"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.WelcomeActivity"
-            android:label="Perfil do Usuário"></activity>
 
-        <receiver
-            android:name=".receiver.Receiver"
+        <service
+            android:name=".services.CreateUserService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+            />
+
+        <activity android:name=".activities.TesteActivity" />
+
+        <activity
+            android:name=".activities.WelcomeActivity"
+            android:label="Perfil do Usuário" />
 
         <activity
             android:name=".activities.ModifyTaskActivity"

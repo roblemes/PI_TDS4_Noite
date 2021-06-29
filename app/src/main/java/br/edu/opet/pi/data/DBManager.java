@@ -89,8 +89,8 @@ public void delete(long _id){
                 DBHelper.TAREFAS_ID + " = " + _id, null);
 }
 
-    public Long GetUserID(String tableName,String usernameId) {
-        String where = "username LIKE '%"+usernameId+"%'";
+    public Long GetUserID(String tableName,String user_email) {
+        String where = "email LIKE '%"+user_email+"%'";
         String[] colunas = new String[]{DBHelper.USERS_ID,
         "username",
         "email",

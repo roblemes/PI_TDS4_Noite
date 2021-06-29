@@ -61,21 +61,21 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put ("cep", cep);
         contentValues.put ("bairro", bairro);
         long result = MyDB.insert("users", null, contentValues);
-        if (result == 1) return false;
+        if (result == -1) return false;
         else
             return true;
     }
-    public Boolean checkusername (String username){
+    public Boolean checkemail (String email){
         SQLiteDatabase MyDB = this.getWritableDatabase();
-        Cursor cursor = MyDB.rawQuery("Select * from users where username = ?", new String[] {username});
+        Cursor cursor = MyDB.rawQuery("Select * from users where email = ?", new String[] {email});
         if (cursor.getCount()>0)
             return true;
         else
             return false;
     }
-    public Boolean checkupassword (String username, String password){
+    public Boolean checkupassword (String email, String password){
         SQLiteDatabase MyDB = this.getWritableDatabase();
-        Cursor cursor = MyDB.rawQuery("Select * from users where username = ? and password = ?", new String[] {username, password});
+        Cursor cursor = MyDB.rawQuery("Select * from users where email = ? and password = ?", new String[] {email, password});
         if (cursor.getCount()>0)
             return true;
         else

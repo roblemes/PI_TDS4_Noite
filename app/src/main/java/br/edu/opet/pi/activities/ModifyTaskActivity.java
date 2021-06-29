@@ -1,6 +1,8 @@
 package br.edu.opet.pi.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +18,8 @@ public class ModifyTaskActivity extends Activity implements View.OnClickListener
     private EditText titleText;
     private Button updateBtn, deleteBtn;
     private EditText descText;
+    private AlertDialog dialog;
+    private AlertDialog.Builder builder;
 
     private long _id;
     private DBManager dbManager;
@@ -60,13 +64,36 @@ public class ModifyTaskActivity extends Activity implements View.OnClickListener
                 this.returnHome();
                 break;
             case R.id.btn_delete:
-                dbManager.delete(_id);
-                Toast.makeText(ModifyTaskActivity.this , "Tarefa excluida", Toast.LENGTH_LONG).show();
 
-                this.returnHome();
+                openDialog();
                 break;
         }
     }
+public void openDialog(){
+
+    builder = new AlertDialog.Builder(ModifyTaskActivity.this);
+    builder.setTitle("Excluir Tarefa");
+    builder.setMessage("Tem certeza que deseja excluir a tarefa?");
+
+    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            dbManager.delete(_id);
+            Toast.makeText(ModifyTaskActivity.this , "Tarefa excluida", Toast.LENGTH_LONG).show();
+            returnHome();
+        }
+    });
+
+    builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+
+        }
+    });
+    dialog = builder.create();
+    dialog.show();
+
+}
 
     public void returnHome(){
         Intent home_intent = new Intent(getApplicationContext(),

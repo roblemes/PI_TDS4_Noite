@@ -76,7 +76,6 @@ public class DashBoard extends AppCompatActivity {
 
         listView = findViewById(R.id.list_view);
         listView.setEmptyView(findViewById(R.id.empty_tasks));
-
         adapter = new SimpleCursorAdapter(this, R.layout.activity_view_record,
                 cursor, from , to , 0 );
 
@@ -121,19 +120,18 @@ public class DashBoard extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        //add_task
+        //Adicionar tarefa
        if (id==R.id.add_task){
             String user_id = intent.getStringExtra("userId");
-            String user_name = intent.getStringExtra("user_name");
+            String user_email = intent.getStringExtra("user_email");
             String assigned_user_id = intent.getStringExtra("userId");
 
             intent = new Intent(DashBoard.this, AddTaskActivity.class);
 
             intent.putExtra("assigned_user_id",assigned_user_id);
-            intent.putExtra("user_name",user_name);
+            intent.putExtra("user_email",user_email);
             intent.putExtra("userId",user_id);
             startActivityForResult(intent,1);
-
         }
         return super.onOptionsItemSelected(item);
     }
