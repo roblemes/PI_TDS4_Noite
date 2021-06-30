@@ -23,8 +23,6 @@
             android:exported="true"
             />
 
-        <activity android:name=".activities.TesteActivity" />
-
         <activity
             android:name=".activities.WelcomeActivity"
             android:label="Perfil do Usuário" />
